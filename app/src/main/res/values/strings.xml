@@ -4,4 +4,14 @@
     <string name="txt_patient_search">جستجوی بیمار</string>
     <string name="txt_ill_search">جستجوی بیماری</string>
     <string name="txt_ill_add">اضافه کردن بیماری</string>
+    <string name="txt_name">نام</string>
+    <string name="txt_family">نام خانوادگی</string>
+    <string name="txt_birthday">تاریخ تولد</string>
+    <string name="txt_phone">شماره تلفن</string>
+    <string name="txt_mobile">شماره موبایل</string>
+    <string name="txt_idNumber">شماره ملی</string>
+    <string name="txt_city">شهر</string>
+    <string name="txt_address">آدرس</string>
+    <string name="btn_register">ثبت بیمار</string>
+    <string name="txt_disease">بیماری</string>
 </resources>

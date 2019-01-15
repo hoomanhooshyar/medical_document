@@ -2,6 +2,7 @@ package com.patientinfo.hooman.patientinfo.Data;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -45,7 +46,7 @@ public class PatientDatabase extends SQLiteOpenHelper {
             COL_TBLPATIENT_ADDRESS+" TEXT NOT NULL,"+
             COL_TBLPATIENT_CITY+" VARCHAR(50) NOT NULL,"+
             COL_TBLPATIENT_DISEASE+" TEXT NOT NULL,"+
-            COL_TBLPATIENT_DESC+" TEXT NOT NULL);";
+            COL_TBLPATIENT_DESC+" TEXT);";
     private static final String QUERY_TBLVISIT = "CREATE TABLE IF NOT EXISTS "+TBL_VISIT+"("+
             COL_TBLVISIT_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
             COL_TBLVISIT_ID_PATIENT+" INTEGER NOT NULL,"+
@@ -135,7 +136,6 @@ public class PatientDatabase extends SQLiteOpenHelper {
             return result;
         }
     }
-
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
