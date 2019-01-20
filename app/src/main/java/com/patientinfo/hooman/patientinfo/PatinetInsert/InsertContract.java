@@ -9,6 +9,6 @@ public interface InsertContract {
         void showError(Throwable error);
     }
     interface Presenter extends BasePresenter<View>{
-        void insertPatient(Patient patient);
+        long insertPatient(Patient patient);
     }
 }

@@ -39,15 +39,15 @@ public class InsertFragment extends BaseFragment implements InsertContract.View 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new InsertPresenter(new PatientRepository());
-        if(Build.VERSION.SDK_INT>23){
+        /*if(Build.VERSION.SDK_INT>23){
             checkPermission();
         }else {
+            Toast.makeText(getViewContext(), "SDK version is low", Toast.LENGTH_SHORT).show();
 
-            setupViews();
-        }
+        }*/
     }
 
-    private void checkPermission() {
+   /* private void checkPermission() {
         if(ContextCompat.checkSelfPermission(G.context,
                 Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -59,11 +59,12 @@ public class InsertFragment extends BaseFragment implements InsertContract.View 
         }else{
             //Write code here
             //presenter = new InsertPresenter(new PatientRepository());
+            Toast.makeText(getViewContext(), "Permission had accepted", Toast.LENGTH_SHORT).show();
             setupViews();
         }
-    }
+    }*/
 
-    @Override
+   /* @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode){
             case MY_REQUEST_CODE:
@@ -71,11 +72,13 @@ public class InsertFragment extends BaseFragment implements InsertContract.View 
                         grantResults[1] == PackageManager.PERMISSION_GRANTED){
                     //write code here
                     //presenter = new InsertPresenter(new PatientRepository());
+                    Toast.makeText(getViewContext(), "After accept permission", Toast.LENGTH_SHORT).show();
                     setupViews();
+
 
                 }
         }
-    }
+    }*/
 
     @Override
     public int getLayout() {
@@ -107,7 +110,21 @@ public class InsertFragment extends BaseFragment implements InsertContract.View 
                 patient.setCity(edtCity.getText().toString());
                 patient.setAddress(edtAddress.getText().toString());
                 patient.setBirth_day(edtBirthday.getText().toString());
-                presenter.insertPatient(patient);
+                long result = presenter.insertPatient(patient);
+                if(result > 0){
+                    Toast.makeText(getViewContext(), "مشخصات بیمار با موفقیت ثبت شد", Toast.LENGTH_SHORT).show();
+                    edtName.setText("");
+                    edtFamily.setText("");
+                    edtDisease.setText("");
+                    edtPhone.setText("");
+                    edtMobile.setText("");
+                    edtIdnumber.setText("");
+                    edtCity.setText("");
+                    edtAddress.setText("");
+                    edtBirthday.setText("");
+                }else{
+                    Toast.makeText(getViewContext(), "مشکلی در ثبت بیمار بوجود آمد\nلطفا مجدد تلاش کنید", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -126,7 +143,7 @@ public class InsertFragment extends BaseFragment implements InsertContract.View 
     public void onStart() {
         super.onStart();
         presenter.attachView(this);
-        //setupViews();
+        setupViews();
 
     }
 

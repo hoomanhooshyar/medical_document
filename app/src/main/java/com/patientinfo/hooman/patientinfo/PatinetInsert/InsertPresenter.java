@@ -9,12 +9,14 @@ public class InsertPresenter implements InsertContract.Presenter {
     private InsertContract.View view;
     private PatientDataSource patientDataSource;
     PatientDatabase patientDatabase;
-    public InsertPresenter(PatientDataSource patientDataSource){
+
+    public InsertPresenter(PatientDataSource patientDataSource) {
         this.patientDataSource = patientDataSource;
         patientDatabase = new PatientDatabase(G.context);
     }
+
     @Override
-    public void insertPatient(Patient patient) {
+    public long insertPatient(Patient patient) {
         String name = patient.getName();
         String family = patient.getFamily();
         String birthDay = patient.getBirth_day();
@@ -24,7 +26,8 @@ public class InsertPresenter implements InsertContract.Presenter {
         String address = patient.getAddress();
         String city = patient.getCity();
         String disease = patient.getDisease();
-        patientDatabase.addPatient(name,family,birthDay,mobile,phone,idNumber,address,city,disease,null);
+        long result = patientDatabase.addPatient(name, family, birthDay, mobile, phone, idNumber, address, city, disease, null);
+        return result;
     }
 
     @Override
