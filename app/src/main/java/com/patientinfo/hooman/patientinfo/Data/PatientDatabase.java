@@ -36,7 +36,7 @@ public class PatientDatabase extends SQLiteOpenHelper {
     private static final String COL_SOLD_DRUG_PATIENT_ID = "id_patient";
     private static final String COL_SOLD_DRUG_DRUG_ID = "id_drug";
     private static final String QUERY_TBLPATINET = "CREATE TABLE IF NOT EXISTS "+TBL_PATIENT+"("+
-            COL_TBLPATIENT_ID+"INTEGER PRIMARY KEY AUTOINCREMENT, "+
+            COL_TBLPATIENT_ID+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "+
             COL_TBLPATIENT_NAME+" VARCHAR(100) NOT NULL,"+
             COL_TBLPATIENT_FAMILY+" VARCHAR(100) NOT NULL,"+
             COL_TBLPATIENT_BIRTHDAY+" VARCHAR(12) NOT NULL,"+
@@ -49,20 +49,16 @@ public class PatientDatabase extends SQLiteOpenHelper {
             COL_TBLPATIENT_DESC+" TEXT);";
     private static final String QUERY_TBLVISIT = "CREATE TABLE IF NOT EXISTS "+TBL_VISIT+"("+
             COL_TBLVISIT_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
-            COL_TBLVISIT_ID_PATIENT+" INTEGER NOT NULL,"+
+            COL_TBLVISIT_ID_PATIENT+" INTEGER NOT NULL REFERENCES "+TBL_PATIENT+"("+COL_TBLPATIENT_ID+"),"+
             COL_TBLVISIT_DATE_VISIT+" VARCHAR(12),"+
-            COL_TBLVISIT_ID_SOLD_DRUG+" INTEGER NOT NULL,"+
-            "FOREIGN KEY("+COL_TBLVISIT_ID_PATIENT+") REFERENCES "+TBL_PATIENT+"("+COL_TBLPATIENT_ID+"),"+
-            "FOREIGN KEY("+COL_TBLVISIT_ID_SOLD_DRUG+") REFERENCES "+TBL_SOLD_DRUG+"("+COL_SOLD_DRUG_ID+"));";
+            COL_TBLVISIT_ID_SOLD_DRUG+" INTEGER NOT NULL REFERENCES "+TBL_DRUG+"("+COL_TBLDRUG_ID+"));";
     private static final String QUERY_TBLDRUG = "CREATE TABLE IF NOT EXISTS "+TBL_DRUG+"("+
             COL_TBLDRUG_ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"+
             COL_TBLDRUG_NAME+" VARCHAR(100));";
     private static final String QUERY_TBLSOLDDRUG = "CREATE TABLE IF NOT EXISTS "+TBL_SOLD_DRUG+"("+
             COL_SOLD_DRUG_ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"+
-            COL_SOLD_DRUG_PATIENT_ID+" INTEGER NOT NULL,"+
-            COL_SOLD_DRUG_DRUG_ID+" INTEGER NOT NULL,"+
-            "FOREIGN KEY("+COL_SOLD_DRUG_PATIENT_ID+") REFERENCES "+TBL_PATIENT+"("+COL_TBLPATIENT_ID+"),"+
-            "FOREIGN KEY("+COL_SOLD_DRUG_DRUG_ID+") REFERENCES "+TBL_DRUG+"("+COL_TBLDRUG_ID+"));";
+            COL_SOLD_DRUG_PATIENT_ID+" INTEGER NOT NULL REFERENCES "+TBL_PATIENT+"("+COL_TBLPATIENT_ID+"),"+
+            COL_SOLD_DRUG_DRUG_ID+" INTEGER NOT NULL REFERENCES "+TBL_DRUG+"("+COL_TBLDRUG_ID+"));";
     Context context;
     public PatientDatabase(Context context){
         super(context,DB_NAME,null,DB_VERSION);
@@ -71,14 +67,10 @@ public class PatientDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        try {
             sqLiteDatabase.execSQL(QUERY_TBLPATINET);
             sqLiteDatabase.execSQL(QUERY_TBLDRUG);
             sqLiteDatabase.execSQL(QUERY_TBLSOLDDRUG);
             sqLiteDatabase.execSQL(QUERY_TBLVISIT);
-        }catch (SQLException e){
-
-        }
     }
     public long addPatient(String name,String family,String birthDay,String cell,String phone,String idNumber,String address,String city,String disease,String desc){
         ContentValues contentValues = new ContentValues();
