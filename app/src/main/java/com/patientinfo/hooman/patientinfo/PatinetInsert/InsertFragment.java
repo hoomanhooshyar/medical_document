@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,6 +22,10 @@ import com.patientinfo.hooman.patientinfo.Data.Patient;
 import com.patientinfo.hooman.patientinfo.Data.PatientRepository;
 import com.patientinfo.hooman.patientinfo.R;
 
+import ir.hamsaa.persiandatepicker.Listener;
+import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
+import ir.hamsaa.persiandatepicker.util.PersianCalendar;
+
 public class InsertFragment extends BaseFragment implements InsertContract.View {
     private InsertContract.Presenter presenter;
     EditText edtName;
@@ -34,7 +39,10 @@ public class InsertFragment extends BaseFragment implements InsertContract.View 
     EditText edtBirthday;
     Button btnRegister;
     Patient patient;
+    PersianDatePickerDialog persianDatePicker;
+    PersianCalendar initDate;
     public final int MY_REQUEST_CODE = 1;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,33 +105,83 @@ public class InsertFragment extends BaseFragment implements InsertContract.View 
         edtAddress = rootView.findViewById(R.id.txtAddress);
         edtBirthday = rootView.findViewById(R.id.txtBirthday);
         btnRegister = rootView.findViewById(R.id.btnRegister);
+        initDate = new PersianCalendar();
+        initDate.setPersianDate(1369, 4, 4);
+        persianDatePicker = new PersianDatePickerDialog(getViewContext())
+                .setPositiveButtonString("باشه")
+                .setNegativeButton("بیخیال")
+                .setTodayButtonVisible(false)
+                .setInitDate(initDate)
+                .setMaxYear(PersianDatePickerDialog.THIS_YEAR)
+                .setMinYear(1300)
+                .setActionTextColor(Color.GRAY)
+                .setListener(new Listener() {
+                    @Override
+                    public void onDateSelected(PersianCalendar persianCalendar) {
+                        String date = persianCalendar.getPersianYear() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianDay();
+                        edtBirthday.setText(date);
+                    }
+
+                    @Override
+                    public void onDismissed() {
+
+                    }
+                });
+        edtBirthday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                persianDatePicker.show();
+            }
+        });
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                patient = new Patient();
-                patient.setName(edtName.getText().toString());
-                patient.setFamily(edtFamily.getText().toString());
-                patient.setDisease(edtDisease.getText().toString());
-                patient.setPhone(edtPhone.getText().toString());
-                patient.setMobile(edtMobile.getText().toString());
-                patient.setId_number(edtIdnumber.getText().toString());
-                patient.setCity(edtCity.getText().toString());
-                patient.setAddress(edtAddress.getText().toString());
-                patient.setBirth_day(edtBirthday.getText().toString());
-                long result = presenter.insertPatient(patient);
-                if(result > 0){
-                    Toast.makeText(getViewContext(), "مشخصات بیمار با موفقیت ثبت شد", Toast.LENGTH_SHORT).show();
-                    edtName.setText("");
-                    edtFamily.setText("");
-                    edtDisease.setText("");
-                    edtPhone.setText("");
-                    edtMobile.setText("");
-                    edtIdnumber.setText("");
-                    edtCity.setText("");
-                    edtAddress.setText("");
-                    edtBirthday.setText("");
-                }else{
-                    Toast.makeText(getViewContext(), "مشکلی در ثبت بیمار بوجود آمد\nلطفا مجدد تلاش کنید", Toast.LENGTH_SHORT).show();
+                if (edtDisease.getText().toString().equals("")) {
+                    Toast.makeText(getViewContext(), "لطفا اسم بیماری را وارد کنید", Toast.LENGTH_SHORT).show();
+                } else if (edtName.getText().toString().equals("")){
+                    Toast.makeText(getViewContext(), "لطفا نام بیمار را وارد کنید", Toast.LENGTH_SHORT).show();
+                } else if (edtFamily.getText().toString().equals("")) {
+                    Toast.makeText(getViewContext(), "لطفا نام خانوادگی بیمار را وارد کنید", Toast.LENGTH_SHORT).show();
+                } else if (edtBirthday.getText().toString().equals("")) {
+                    Toast.makeText(getViewContext(), "لطفا تاریخ تولد بیمار را وارد کنید", Toast.LENGTH_SHORT).show();
+                } else if (edtPhone.getText().toString().equals("")) {
+                    Toast.makeText(getViewContext(), "لطفا شماره تلفن را وارد کنید", Toast.LENGTH_SHORT).show();
+                } else if (edtMobile.getText().toString().equals("")) {
+                    Toast.makeText(getViewContext(), "لطفا شماره موبایل را وارد کنید", Toast.LENGTH_SHORT).show();
+                } else if (edtIdnumber.getText().toString().equals("")) {
+                    Toast.makeText(getViewContext(), "لطفا شماره ملی را وارد کنید", Toast.LENGTH_SHORT).show();
+                } else if (edtCity.getText().toString().equals("")) {
+                    Toast.makeText(getViewContext(), "لطفا شهر را وارد کنید", Toast.LENGTH_SHORT).show();
+                } else if (edtAddress.getText().toString().equals("")) {
+                    Toast.makeText(getViewContext(), "لطفا آدرس را وارد کنید", Toast.LENGTH_SHORT).show();
+                } else if (edtIdnumber.length() < 10) {
+                    Toast.makeText(getViewContext(), "کد ملی را به درستی وارد نکرده اید", Toast.LENGTH_SHORT).show();
+                } else {
+                    patient = new Patient();
+                    patient.setName(edtName.getText().toString());
+                    patient.setFamily(edtFamily.getText().toString());
+                    patient.setDisease(edtDisease.getText().toString());
+                    patient.setPhone(edtPhone.getText().toString());
+                    patient.setMobile(edtMobile.getText().toString());
+                    patient.setId_number(edtIdnumber.getText().toString());
+                    patient.setCity(edtCity.getText().toString());
+                    patient.setAddress(edtAddress.getText().toString());
+                    patient.setBirth_day(edtBirthday.getText().toString());
+                    long result = presenter.insertPatient(patient);
+                    if (result > 0) {
+                        Toast.makeText(getViewContext(), "مشخصات بیمار با موفقیت ثبت شد", Toast.LENGTH_SHORT).show();
+                        edtName.setText("");
+                        edtFamily.setText("");
+                        edtDisease.setText("");
+                        edtPhone.setText("");
+                        edtMobile.setText("");
+                        edtIdnumber.setText("");
+                        edtCity.setText("");
+                        edtAddress.setText("");
+                        edtBirthday.setText("");
+                    } else {
+                        Toast.makeText(getViewContext(), "مشکلی در ثبت بیمار بوجود آمد\nلطفا مجدد تلاش کنید", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
