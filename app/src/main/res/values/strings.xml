@@ -14,4 +14,21 @@
     <string name="txt_address">آدرس</string>
     <string name="btn_register">ثبت بیمار</string>
     <string name="txt_disease">بیماری</string>
+    <string name="txt_row_patientName">نام:</string>
+    <string name="txt_row_patientFamily">نام خانوادگی:</string>
+    <string name="txt_row_patientIdNumber">کد ملی:</string>
+    <string name="btn_row_patientDelete">حذف بیمار</string>
+    <string name="txt_row_patientDisease">نوع بیماری:</string>
+    <string name="btn_row_patientEdit">ویرایش اطلاعات</string>
+    <string name="edt_fragmentPatientSearch_patientName">نام بیمار را وارد کنید</string>
+    <string name="edt_fragmentPatientSearch_disease">نوع بیماری را وارد کنید</string>
+    <string name="edt_fragmentIdNumberSearch_idNumber">لطفا کد ملی را وارد کنید</string>
+    <string name="edt_fragmentCitySearch_city">لطفا شهر را وارد کنید</string>
+    <string name="txt_fragmentSearchMain_title">لطفا نوع جستجوی خودرا انتخاب کنید</string>
+    <string name="rb_fragmentSearchMain_patientName">نام بیمار</string>
+    <string name="rb_fragmentMainSearch_disease">بیماری</string>
+    <string name="rb_fragmentMainSearch_idNumber">کد ملی</string>
+    <string name="rb_fragmentMainSearch_city">شهر</string>
+    <string name="btn_fragmentMainSearch_ok">تایید</string>
+    <string name="btn_fragmentMainSearch_cancel">انصراف</string>
 </resources>

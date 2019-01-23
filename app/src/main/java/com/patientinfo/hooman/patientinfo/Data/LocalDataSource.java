@@ -21,4 +21,9 @@ public class LocalDataSource implements PatientDataSource {
         String description = patient.getDescription();
         return patientDatabase.addPatient(name, family, birht_day, mobile, phone, id_number, address, city, disease, description);
     }
+
+    @Override
+    public Patient searchPatient(String charSequence) {
+        return patientDatabase.getPatientbyName(charSequence);
+    }
 }

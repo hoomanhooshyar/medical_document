@@ -6,4 +6,9 @@ public class PatientRepository implements PatientDataSource {
     public long insertPatient(Patient patient) {
         return localDataSource.insertPatient(patient);
     }
+
+    @Override
+    public Patient searchPatient(String charSequence) {
+        return localDataSource.searchPatient(charSequence);
+    }
 }

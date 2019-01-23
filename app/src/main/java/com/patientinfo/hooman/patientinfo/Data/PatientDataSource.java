@@ -6,4 +6,5 @@ import io.reactivex.Single;
 
 public interface PatientDataSource {
     long insertPatient(Patient patient);
+    Patient searchPatient(String charSequence);
 }

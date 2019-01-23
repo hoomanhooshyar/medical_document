@@ -8,14 +8,13 @@ import android.os.Bundle;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.patientinfo.hooman.patientinfo.PatientSearch.SearchFragment;
 import com.patientinfo.hooman.patientinfo.PatinetInsert.InsertFragment;
 import com.ss.bottomnavigation.BottomNavigation;
 import com.ss.bottomnavigation.events.OnSelectedItemChangeListener;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigation bottomNavigation;
-    Fragment fragment;
-    FragmentManager fragmentManager;
     FragmentTransaction transaction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "0", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.tab_patient_search:
-                        Toast.makeText(MainActivity.this, "1", Toast.LENGTH_SHORT).show();
+                        transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.mainFrame,new SearchFragment());
+                        transaction.commit();
                         break;
                     case R.id.tab_patient_add:
                         transaction = getSupportFragmentManager().beginTransaction();
