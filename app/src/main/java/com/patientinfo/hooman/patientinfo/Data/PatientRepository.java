@@ -1,5 +1,7 @@
 package com.patientinfo.hooman.patientinfo.Data;
 
+import android.database.Cursor;
+
 public class PatientRepository implements PatientDataSource {
     private LocalDataSource localDataSource = new LocalDataSource();
     @Override
@@ -8,7 +10,28 @@ public class PatientRepository implements PatientDataSource {
     }
 
     @Override
-    public Patient searchPatient(String charSequence) {
+    public Cursor searchPatient(CharSequence charSequence) {
         return localDataSource.searchPatient(charSequence);
     }
+
+    @Override
+    public Cursor searchPatientByDisease(CharSequence charSequence) {
+        return localDataSource.searchPatientByDisease(charSequence);
+    }
+
+    @Override
+    public Cursor searchPatientByIdnumber(CharSequence charSequence) {
+        return localDataSource.searchPatientByIdnumber(charSequence);
+    }
+
+    @Override
+    public Cursor searchPatientByCity(CharSequence charSequence) {
+        return localDataSource.searchPatientByCity(charSequence);
+    }
+
+    @Override
+    public long updatePatientDesc(int id, String desc) {
+        return localDataSource.updatePatientDesc(id,desc);
+    }
+
 }

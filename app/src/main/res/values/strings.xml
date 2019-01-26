@@ -31,4 +31,6 @@
     <string name="rb_fragmentMainSearch_city">شهر</string>
     <string name="btn_fragmentMainSearch_ok">تایید</string>
     <string name="btn_fragmentMainSearch_cancel">انصراف</string>
+    <string name="btn_patientInfo_summary">سوابق بیمار</string>
+    <string name="btn_patientInfo_edit">ویرایش شرح حال</string>
 </resources>

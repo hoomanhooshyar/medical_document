@@ -37,24 +37,24 @@ public class PatientDatabase extends SQLiteOpenHelper {
     private static final String COL_SOLD_DRUG_DRUG_ID = "id_drug";
     private static final String QUERY_TBLPATINET = "CREATE TABLE IF NOT EXISTS " + TBL_PATIENT + "(" +
             COL_TBLPATIENT_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
-            COL_TBLPATIENT_NAME + " VARCHAR(100) NOT NULL," +
-            COL_TBLPATIENT_FAMILY + " VARCHAR(100) NOT NULL," +
-            COL_TBLPATIENT_BIRTHDAY + " VARCHAR(12) NOT NULL," +
-            COL_TBLPATIENT_CELL + " VARCHAR(12) NOT NULL," +
-            COL_TBLPATIENT_PHONE + " VARCHAR(12) NOT NULL," +
-            COL_TBLPATIENT_IDNUMBER + " VARCHAR(12) NOT NULL," +
+            COL_TBLPATIENT_NAME + " NVARCHAR(100) NOT NULL," +
+            COL_TBLPATIENT_FAMILY + " NVARCHAR(100) NOT NULL," +
+            COL_TBLPATIENT_BIRTHDAY + " NVARCHAR(12) NOT NULL," +
+            COL_TBLPATIENT_CELL + " NVARCHAR(12) NOT NULL," +
+            COL_TBLPATIENT_PHONE + " NVARCHAR(12) NOT NULL," +
+            COL_TBLPATIENT_IDNUMBER + " NVARCHAR(12) NOT NULL," +
             COL_TBLPATIENT_ADDRESS + " TEXT NOT NULL," +
-            COL_TBLPATIENT_CITY + " VARCHAR(50) NOT NULL," +
+            COL_TBLPATIENT_CITY + " NVARCHAR(50) NOT NULL," +
             COL_TBLPATIENT_DISEASE + " TEXT NOT NULL," +
             COL_TBLPATIENT_DESC + " TEXT);";
     private static final String QUERY_TBLVISIT = "CREATE TABLE IF NOT EXISTS " + TBL_VISIT + "(" +
             COL_TBLVISIT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COL_TBLVISIT_ID_PATIENT + " INTEGER NOT NULL REFERENCES " + TBL_PATIENT + "(" + COL_TBLPATIENT_ID + ")," +
-            COL_TBLVISIT_DATE_VISIT + " VARCHAR(12)," +
+            COL_TBLVISIT_DATE_VISIT + " NVARCHAR(12)," +
             COL_TBLVISIT_ID_SOLD_DRUG + " INTEGER NOT NULL REFERENCES " + TBL_DRUG + "(" + COL_TBLDRUG_ID + "));";
     private static final String QUERY_TBLDRUG = "CREATE TABLE IF NOT EXISTS " + TBL_DRUG + "(" +
             COL_TBLDRUG_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-            COL_TBLDRUG_NAME + " VARCHAR(100));";
+            COL_TBLDRUG_NAME + " NVARCHAR(100));";
     private static final String QUERY_TBLSOLDDRUG = "CREATE TABLE IF NOT EXISTS " + TBL_SOLD_DRUG + "(" +
             COL_SOLD_DRUG_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             COL_SOLD_DRUG_PATIENT_ID + " INTEGER NOT NULL REFERENCES " + TBL_PATIENT + "(" + COL_TBLPATIENT_ID + ")," +
@@ -96,29 +96,29 @@ public class PatientDatabase extends SQLiteOpenHelper {
         }
     }
 
-    public Patient getPatientbyName(String name) {
-        Patient patient = new Patient();
-        String query = "SELECT * FROM tbl_patient WHERE name=" + name;
+    public Cursor getPatientbyName(CharSequence name) {
+        // Patient patient = new Patient();
+        String query = "SELECT * FROM " + TBL_PATIENT + " WHERE " + COL_TBLPATIENT_FAMILY + " LIKE '" + name + "%';";
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor result = sqLiteDatabase.rawQuery(query, null);
-        if (result.moveToFirst()) {
-            do {
-                patient.setName(result.getString(1));
-                patient.setFamily(result.getString(2));
-                patient.setBirth_day(result.getString(3));
-                patient.setMobile(result.getString(4));
-                patient.setPhone(result.getString(5));
-                patient.setId_number(result.getString(6));
-                patient.setAddress(result.getString(7));
-                patient.setCity(result.getString(8));
-                patient.setDisease(result.getString(9));
-                patient.setDescription(result.getString(10));
-            } while (result.moveToNext());
-        }
-        result.close();
-        sqLiteDatabase.close();
-        return patient;
+        return sqLiteDatabase.rawQuery(query, null);
+    }
 
+    public Cursor getPatientbyDisease(CharSequence disease) {
+        String query = "SELECT * FROM " + TBL_PATIENT + " WHERE " + COL_TBLPATIENT_DISEASE + " LIKE '" + disease + "%';";
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        return sqLiteDatabase.rawQuery(query, null);
+    }
+
+    public Cursor getPatientbyIdNumber(CharSequence idnumber) {
+        String query = "SELECT * FROM " + TBL_PATIENT + " WHERE " + COL_TBLPATIENT_IDNUMBER + " LIKE '" + idnumber + "%';";
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        return sqLiteDatabase.rawQuery(query, null);
+    }
+
+    public Cursor getPatientbyCity(CharSequence city) {
+        String query = "SELECT * FROM " + TBL_PATIENT + " WHERE " + COL_TBLPATIENT_CITY + " LIKE '" + city + "%';";
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        return sqLiteDatabase.rawQuery(query, null);
     }
 
     public long addDrug(String drugName) {
@@ -158,6 +158,18 @@ public class PatientDatabase extends SQLiteOpenHelper {
         } else {
             return result;
         }
+    }
+    public long updatePatientDesc(int id,String desc){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("description",desc);
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        long result = sqLiteDatabase.update(TBL_PATIENT,contentValues,"_id="+id,null);
+        if(result > 0){
+            return result;
+        }else {
+            return result;
+        }
+
     }
 
     @Override

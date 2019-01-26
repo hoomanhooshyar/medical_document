@@ -1,6 +1,7 @@
 package com.patientinfo.hooman.patientinfo.Data;
 
 public class Patient {
+    private int id;
     private String name;
     private String family;
     private String birth_day;
@@ -90,5 +91,13 @@ public class Patient {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

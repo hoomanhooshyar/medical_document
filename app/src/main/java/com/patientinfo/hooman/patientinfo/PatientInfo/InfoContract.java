@@ -1,17 +1,14 @@
-package com.patientinfo.hooman.patientinfo.PatientSearch;
+package com.patientinfo.hooman.patientinfo.PatientInfo;
 
 import com.patientinfo.hooman.patientinfo.Base.BasePresenter;
 import com.patientinfo.hooman.patientinfo.Base.BaseView;
 import com.patientinfo.hooman.patientinfo.Data.Patient;
 
-import java.util.List;
-
-public interface SearchContract {
+public interface InfoContract {
     interface View extends BaseView{
-        void showError(Throwable e);
-        void showSearchedPatients(List<Patient> patients);
+        void showPatientInfo(Patient patient);
     }
     interface Presenter extends BasePresenter<View>{
-        void getSearchedPatient(CharSequence charSequence,int id);
+        void updatePatientInfo();
     }
 }

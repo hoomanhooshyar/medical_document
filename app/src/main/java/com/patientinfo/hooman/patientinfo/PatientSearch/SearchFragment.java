@@ -4,7 +4,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -30,16 +34,22 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
     RecyclerView rvSearchFragmentItems;
     ArrayList<String> spinnerItems;
     ArrayAdapter<String> spinnerAdapter;
+    List<Patient> searchedPatient;
+    SearchAdapter searchAdapter;
+    int itemPosition = 0;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        searchedPatient = new ArrayList<>();
         presenter = new SearchPresenter(new PatientRepository());
         spinnerItems = new ArrayList<>();
+        spinnerItems.add("لطفا نوع جستجوی خود را انتخاب کنید");
         spinnerItems.add("بیمار");
         spinnerItems.add("بیماری");
         spinnerItems.add("کد ملی");
         spinnerItems.add("شهر");
-        spinnerAdapter = new ArrayAdapter<String>(getViewContext(),android.R.layout.simple_spinner_item,spinnerItems);
+        spinnerAdapter = new ArrayAdapter<String>(getViewContext(), android.R.layout.simple_spinner_item, spinnerItems);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     }
 
@@ -53,25 +63,139 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
         edtSearchFragmentSearch = rootView.findViewById(R.id.edt_searchFragment_search);
         spSearchFragmentKind = rootView.findViewById(R.id.sp_searchFragment_kind);
         rvSearchFragmentItems = rootView.findViewById(R.id.rv_searchFragment_patient);
+        rvSearchFragmentItems.setLayoutManager(new LinearLayoutManager(getViewContext(), LinearLayoutManager.VERTICAL, false));
         spSearchFragmentKind.setAdapter(spinnerAdapter);
         spSearchFragmentKind.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String item = adapterView.getItemAtPosition(i).toString();
-                switch (item){
-                    case "بیمار":
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                //String item = adapterView.getItemAtPosition(i).toString();
+                //final int itemId = spSearchFragmentKind.getSelectedItemPosition();
+                itemPosition = position;
+                switch (itemPosition) {
+                    case 1:
                         edtSearchFragmentSearch.setHint(R.string.edt_fragmentPatientSearch_patientName);
+                        edtSearchFragmentSearch.setInputType(InputType.TYPE_CLASS_TEXT);
+                        edtSearchFragmentSearch.setText("");
                         break;
-                    case "بیماری":
+                    case 2:
                         edtSearchFragmentSearch.setHint(R.string.edt_fragmentPatientSearch_disease);
+                        edtSearchFragmentSearch.setInputType(InputType.TYPE_CLASS_TEXT);
+                        edtSearchFragmentSearch.setText("");
                         break;
-                    case "کد ملی":
+                    case 3:
                         edtSearchFragmentSearch.setHint(R.string.edt_fragmentIdNumberSearch_idNumber);
+                        edtSearchFragmentSearch.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        edtSearchFragmentSearch.setText("");
                         break;
-                    case "شهر":
+                    case 4:
                         edtSearchFragmentSearch.setHint(R.string.edt_fragmentCitySearch_city);
+                        edtSearchFragmentSearch.setInputType(InputType.TYPE_CLASS_TEXT);
+                        edtSearchFragmentSearch.setText("");
                         break;
                 }
+
+
+                edtSearchFragmentSearch.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        presenter.getSearchedPatient(charSequence, itemPosition);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+
+                    }
+                });
+                /*switch (itemPosition){
+                    case 1:
+                        edtSearchFragmentSearch.setHint(R.string.edt_fragmentPatientSearch_patientName);
+                        edtSearchFragmentSearch.setInputType(InputType.TYPE_CLASS_TEXT);
+                        edtSearchFragmentSearch.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                                presenter.getSearchedPatient(charSequence,itemPosition);
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable editable) {
+
+                            }
+                        });
+
+                        break;
+                    case 2:
+
+                        edtSearchFragmentSearch.setHint(R.string.edt_fragmentPatientSearch_disease);
+                        edtSearchFragmentSearch.setInputType(InputType.TYPE_CLASS_TEXT);
+                        edtSearchFragmentSearch.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                                presenter.getSearchedPatient(charSequence,itemPosition);
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable editable) {
+
+                            }
+                        });
+                        break;
+                    case 3:
+                        edtSearchFragmentSearch.setHint(R.string.edt_fragmentIdNumberSearch_idNumber);
+                        edtSearchFragmentSearch.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        edtSearchFragmentSearch.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                                presenter.getSearchedPatient(charSequence,itemPosition);
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable editable) {
+
+                            }
+                        });
+                        break;
+                    case 4:
+                        edtSearchFragmentSearch.setHint(R.string.edt_fragmentCitySearch_city);
+                        edtSearchFragmentSearch.setInputType(InputType.TYPE_CLASS_TEXT);
+                        edtSearchFragmentSearch.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                                presenter.getSearchedPatient(charSequence,itemPosition);
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable editable) {
+
+                            }
+                        });
+                        break;
+                }*/
             }
 
             @Override
@@ -88,7 +212,15 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
 
     @Override
     public void showSearchedPatients(List<Patient> patients) {
-
+        searchedPatient.clear();
+        searchedPatient = patients;
+        if (searchedPatient.size() == 0) {
+            Toast.makeText(getViewContext(), "هیچ بیماری با این مشخصات یافت نشد", Toast.LENGTH_SHORT).show();
+        } else {
+            searchAdapter = new SearchAdapter(getViewContext(), searchedPatient,getActivity());
+            rvSearchFragmentItems.setAdapter(searchAdapter);
+            searchAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
