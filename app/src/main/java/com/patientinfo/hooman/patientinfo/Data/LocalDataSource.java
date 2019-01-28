@@ -2,6 +2,8 @@ package com.patientinfo.hooman.patientinfo.Data;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
+import android.util.Log;
 
 import com.patientinfo.hooman.patientinfo.Classes.G;
 

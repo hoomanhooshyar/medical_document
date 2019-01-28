@@ -2,6 +2,8 @@ package com.patientinfo.hooman.patientinfo.PatientSearch;
 
 import android.content.CursorLoader;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
+import android.util.Log;
 
 import com.patientinfo.hooman.patientinfo.Classes.G;
 import com.patientinfo.hooman.patientinfo.Data.Patient;
@@ -68,6 +70,7 @@ public class SearchPresenter implements SearchContract.Presenter {
             patient.setAddress(result.getString(7));
             patient.setCity(result.getString(8));
             patient.setDisease(result.getString(9));
+            patient.setDescription(result.getString(10));
             patients.add(patient);
         }
         result.close();

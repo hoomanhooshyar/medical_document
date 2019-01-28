@@ -1,6 +1,8 @@
 package com.patientinfo.hooman.patientinfo.Data;
 
 import android.database.Cursor;
+import android.database.DatabaseUtils;
+import android.util.Log;
 
 public class PatientRepository implements PatientDataSource {
     private LocalDataSource localDataSource = new LocalDataSource();

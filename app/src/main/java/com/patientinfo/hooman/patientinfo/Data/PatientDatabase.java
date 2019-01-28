@@ -3,9 +3,11 @@ package com.patientinfo.hooman.patientinfo.Data;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 public class PatientDatabase extends SQLiteOpenHelper {
@@ -163,7 +165,7 @@ public class PatientDatabase extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put("description",desc);
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        long result = sqLiteDatabase.update(TBL_PATIENT,contentValues,"_id="+id,null);
+        long result = sqLiteDatabase.update(TBL_PATIENT,contentValues,"id="+id,null);
         if(result > 0){
             return result;
         }else {

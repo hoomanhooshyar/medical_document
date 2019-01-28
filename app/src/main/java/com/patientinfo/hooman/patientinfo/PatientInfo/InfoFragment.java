@@ -3,6 +3,10 @@ package com.patientinfo.hooman.patientinfo.PatientInfo;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.patientinfo.hooman.patientinfo.Base.BaseFragment;
@@ -17,12 +21,18 @@ public class InfoFragment extends BaseFragment implements InfoContract.View {
     String patientDisease;
     String patientDesc;
     int patientId;
+    TextView txtPatientInfo;
+    EditText edtSummary;
+    Button btnEdit;
+    Button btnSummary;
+    int status = 0;
     private InfoContract.Presenter presenter;
-
+    Patient patient;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new InfoPresenter(new PatientRepository());
+        patient = new Patient();
     }
 
     @Override
@@ -32,12 +42,41 @@ public class InfoFragment extends BaseFragment implements InfoContract.View {
 
     @Override
     public void setupViews() {
+        String paientInfo = patientName+" "+patientFamily+" "+patientIdNumber;
+        txtPatientInfo = rootView.findViewById(R.id.txt_patientFragment_info);
+        edtSummary = rootView.findViewById(R.id.edt_patientInfoFragment_summary);
+        btnEdit = rootView.findViewById(R.id.btn_patientInfoFragment_edit);
+        btnSummary = rootView.findViewById(R.id.btn_patientInfoFragment_summary);
+        edtSummary.setText(patientDesc);
+        txtPatientInfo.setText(paientInfo);
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (status == 0) {
+                    btnEdit.setText("ویرایش شرح حال");
+                    status = 1;
+                    edtSummary.setEnabled(true);
+                } else if (status == 1) {
+                    btnEdit.setText("ثبت شرح حال");
+                    status = 2;
+                }else if(status == 2){
+                    patientDesc = edtSummary.getText().toString();
+                    presenter.updatePatientInfo(patientId,patientDesc);
+                    status = 0;
+                    edtSummary.setEnabled(false);
+                }
+            }
+        });
 
     }
 
     @Override
-    public void showPatientInfo(Patient patient) {
-
+    public void showPatientInfo(long result) {
+        if(result > 0){
+            Toast.makeText(getViewContext(), "اطلاعات با موفقیت ویرایش شد", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(getViewContext(), "لطفا دوباره تلاش کنید", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -53,7 +92,7 @@ public class InfoFragment extends BaseFragment implements InfoContract.View {
         patientIdNumber = this.getArguments().getString("patient_id");
         patientDisease = this.getArguments().getString("patient_disease");
         patientDesc = this.getArguments().getString("patient_desc");
-        if (patientName.equals("") || patientFamily.equals("") || patientIdNumber.equals("") || patientDisease.equals("") || patientDesc.equals("")) {
+        if (patientName.equals("") || patientFamily.equals("") || patientIdNumber.equals("") || patientDisease.equals("")) {
             Toast.makeText(getViewContext(), "مشکلی پیش آمده است", Toast.LENGTH_SHORT).show();
         } else {
             presenter.attachView(this);

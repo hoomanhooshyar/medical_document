@@ -13,10 +13,12 @@ public class InfoPresenter implements InfoContract.Presenter {
     public InfoPresenter(PatientDataSource patientDataSource){
         this.patientDataSource = patientDataSource;
         patientDatabase = new PatientDatabase(G.context);
+        patient = new Patient();
     }
     @Override
-    public void updatePatientInfo() {
-
+    public void updatePatientInfo(int id,String desc) {
+        long result = patientDatabase.updatePatientDesc(id,desc);
+        view.showPatientInfo(result);
     }
 
     @Override

@@ -6,9 +6,10 @@ import com.patientinfo.hooman.patientinfo.Data.Patient;
 
 public interface InfoContract {
     interface View extends BaseView{
-        void showPatientInfo(Patient patient);
+        void showPatientInfo(long result);
     }
     interface Presenter extends BasePresenter<View>{
-        void updatePatientInfo();
+        void updatePatientInfo(int id,String desc);
+
     }
 }
