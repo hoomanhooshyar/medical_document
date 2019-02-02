@@ -57,10 +57,10 @@ public class PatientDatabase extends SQLiteOpenHelper {
     private static final String QUERY_TBLDRUG = "CREATE TABLE IF NOT EXISTS " + TBL_DRUG + "(" +
             COL_TBLDRUG_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             COL_TBLDRUG_NAME + " NVARCHAR(100));";
-    private static final String QUERY_TBLSOLDDRUG = "CREATE TABLE IF NOT EXISTS " + TBL_SOLD_DRUG + "(" +
+   /* private static final String QUERY_TBLSOLDDRUG = "CREATE TABLE IF NOT EXISTS " + TBL_SOLD_DRUG + "(" +
             COL_SOLD_DRUG_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             COL_SOLD_DRUG_PATIENT_ID + " INTEGER NOT NULL REFERENCES " + TBL_PATIENT + "(" + COL_TBLPATIENT_ID + ")," +
-            COL_SOLD_DRUG_DRUG_ID + " INTEGER NOT NULL REFERENCES " + TBL_DRUG + "(" + COL_TBLDRUG_ID + "));";
+            COL_SOLD_DRUG_DRUG_ID + " INTEGER NOT NULL REFERENCES " + TBL_DRUG + "(" + COL_TBLDRUG_ID + "));";*/
     Context context;
 
     public PatientDatabase(Context context) {
@@ -72,7 +72,7 @@ public class PatientDatabase extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(QUERY_TBLPATINET);
         sqLiteDatabase.execSQL(QUERY_TBLDRUG);
-        sqLiteDatabase.execSQL(QUERY_TBLSOLDDRUG);
+       // sqLiteDatabase.execSQL(QUERY_TBLSOLDDRUG);
         sqLiteDatabase.execSQL(QUERY_TBLVISIT);
     }
 
@@ -122,7 +122,11 @@ public class PatientDatabase extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         return sqLiteDatabase.rawQuery(query, null);
     }
-
+    public Cursor getDrug(){
+        String query = "SELECT * FROM "+TBL_DRUG+";";
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        return sqLiteDatabase.rawQuery(query,null);
+    }
     public long addDrug(String drugName) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_TBLDRUG_NAME, drugName);

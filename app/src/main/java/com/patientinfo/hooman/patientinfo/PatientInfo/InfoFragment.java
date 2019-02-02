@@ -3,6 +3,7 @@ package com.patientinfo.hooman.patientinfo.PatientInfo;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import com.patientinfo.hooman.patientinfo.Base.BaseFragment;
 import com.patientinfo.hooman.patientinfo.Data.Patient;
 import com.patientinfo.hooman.patientinfo.Data.PatientRepository;
+import com.patientinfo.hooman.patientinfo.PatientAddMedicalRecord.AddMedicalRecordFragment;
 import com.patientinfo.hooman.patientinfo.R;
 
 public class InfoFragment extends BaseFragment implements InfoContract.View {
@@ -26,6 +28,7 @@ public class InfoFragment extends BaseFragment implements InfoContract.View {
     Button btnEdit;
     Button btnSummary;
     int status = 0;
+    private FragmentTransaction transaction;
     private InfoContract.Presenter presenter;
     Patient patient;
     @Override
@@ -65,6 +68,14 @@ public class InfoFragment extends BaseFragment implements InfoContract.View {
                     status = 0;
                     edtSummary.setEnabled(false);
                 }
+            }
+        });
+        btnSummary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainFrame,new AddMedicalRecordFragment());
+                transaction.commit();
             }
         });
 

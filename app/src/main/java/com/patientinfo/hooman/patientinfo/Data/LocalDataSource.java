@@ -7,6 +7,8 @@ import android.util.Log;
 
 import com.patientinfo.hooman.patientinfo.Classes.G;
 
+import java.util.List;
+
 public class LocalDataSource implements PatientDataSource {
     private PatientDatabase patientDatabase = new PatientDatabase(G.context);
 
@@ -48,6 +50,21 @@ public class LocalDataSource implements PatientDataSource {
     @Override
     public long updatePatientDesc(int id, String desc) {
         return patientDatabase.updatePatientDesc(id,desc);
+    }
+
+    @Override
+    public long addDrug(String drugName) {
+        return patientDatabase.addDrug(drugName);
+    }
+
+    @Override
+    public long addMedicalRecord(int patientId, String visitDate, int soldDrug) {
+        return patientDatabase.addVisit(patientId,visitDate,soldDrug);
+    }
+
+    @Override
+    public Cursor getDrug() {
+        return patientDatabase.getDrug();
     }
 
 

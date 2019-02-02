@@ -36,4 +36,19 @@ public class PatientRepository implements PatientDataSource {
         return localDataSource.updatePatientDesc(id,desc);
     }
 
+    @Override
+    public long addDrug(String drugName) {
+        return localDataSource.addDrug(drugName);
+    }
+
+    @Override
+    public long addMedicalRecord(int patientId, String visitDate, int soldDrug) {
+        return localDataSource.addMedicalRecord(patientId,visitDate,soldDrug);
+    }
+
+    @Override
+    public Cursor getDrug() {
+        return localDataSource.getDrug();
+    }
+
 }

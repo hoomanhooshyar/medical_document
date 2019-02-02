@@ -33,4 +33,11 @@
     <string name="btn_fragmentMainSearch_cancel">انصراف</string>
     <string name="btn_patientInfo_summary">سوابق بیمار</string>
     <string name="btn_patientInfo_edit">ویرایش شرح حال</string>
+    <string name="txt_drug_insert">اضافه کردن دارو</string>
+    <string name="txt_addDrugFragment_title">نام دارو را وارد کنید</string>
+    <string name="btn_addDrugFragment_save">ثبت</string>
+    <string name="btn_medicalRecordFragment_add">اضافه کردن سابقه بیمار</string>
+    <string name="txt_row_addDrug_dateTitle">تاریخ:</string>
+    <string name="txt_row_addDrug_soledDrugTitle">داروهای تجویز شده:</string>
+    <string name="btn_addMedicalRecordFragment_add">اضافه کردن دارو</string>
 </resources>
