@@ -19,23 +19,40 @@ public class AddMedicalRecordPresenter implements AddMedicalRecordContract.Prese
     private PatientDataSource patientDataSource;
     private Drug drug;
     private List<Drug> drugList;
+    private List<String> soldDrugs;
     public AddMedicalRecordPresenter(PatientDataSource patientDataSource){
         this.patientDataSource = patientDataSource;
         dates = new ArrayList<>();
         patientDatabase = new PatientDatabase(G.context);
         drugList = new ArrayList<>();
+        soldDrugs = new ArrayList<>();
     }
+
     @Override
-    public long addMedicalRecord(String date, List<Drug> drugs) {
-        return 0;
+    public long addMedicalRecord(int patientId, int drugId, String date) {
+        long result;
+        result = patientDatabase.addVisit(patientId,date,drugId);
+        if(result > 0){
+            return result;
+        }else{
+            return result;
+        }
     }
 
     @Override
     public void getDrug() {
         Cursor result;
         result = patientDatabase.getDrug();
-        drugList = getDrug(result);
+        drugList = getDrugs(result);
         view.getDrugs(drugList);
+    }
+
+    @Override
+    public void getSoldDrugs(int patientId) {
+        Cursor result;
+        result = patientDatabase.getSoldDrug(patientId);
+        soldDrugs = getSoldDrug(result);
+        view.showSoldDrugs(soldDrugs);
     }
 
     @Override
@@ -47,7 +64,7 @@ public class AddMedicalRecordPresenter implements AddMedicalRecordContract.Prese
     public void detachView() {
         view = null;
     }
-    private List<Drug> getDrug(Cursor result){
+    private List<Drug> getDrugs(Cursor result){
         List<Drug> drugs = new ArrayList<>();
         for(result.moveToFirst();!result.isAfterLast();result.moveToNext()){
             drug = new Drug();
@@ -56,6 +73,15 @@ public class AddMedicalRecordPresenter implements AddMedicalRecordContract.Prese
             drugs.add(drug);
         }
         result.close();
+        return drugs;
+    }
+    private List<String> getSoldDrug(Cursor result){
+        List<String> drugs = new ArrayList<>();
+        for(result.moveToFirst();!result.isAfterLast();result.moveToNext()){
+            String soldDrug;
+            soldDrug = result.getString(0);
+            drugs.add(soldDrug);
+        }
         return drugs;
     }
 }

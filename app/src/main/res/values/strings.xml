@@ -40,4 +40,5 @@
     <string name="txt_row_addDrug_dateTitle">تاریخ:</string>
     <string name="txt_row_addDrug_soledDrugTitle">داروهای تجویز شده:</string>
     <string name="btn_addMedicalRecordFragment_add">اضافه کردن دارو</string>
+    <string name="btn_row_addDrug_addDrug">اضافه کردن دارو</string>
 </resources>

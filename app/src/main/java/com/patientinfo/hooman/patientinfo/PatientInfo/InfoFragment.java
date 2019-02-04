@@ -22,7 +22,7 @@ public class InfoFragment extends BaseFragment implements InfoContract.View {
     String patientIdNumber;
     String patientDisease;
     String patientDesc;
-    int patientId;
+    public static int patientId;
     TextView txtPatientInfo;
     EditText edtSummary;
     Button btnEdit;

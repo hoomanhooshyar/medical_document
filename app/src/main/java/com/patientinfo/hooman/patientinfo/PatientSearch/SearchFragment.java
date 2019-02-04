@@ -22,6 +22,8 @@ import android.widget.Toast;
 import com.patientinfo.hooman.patientinfo.Base.BaseFragment;
 import com.patientinfo.hooman.patientinfo.Data.Patient;
 import com.patientinfo.hooman.patientinfo.Data.PatientRepository;
+import com.patientinfo.hooman.patientinfo.PatientAddMedicalRecord.AddMedicalAdapter;
+import com.patientinfo.hooman.patientinfo.PatientAddMedicalRecord.Item;
 import com.patientinfo.hooman.patientinfo.R;
 
 import java.util.ArrayList;

@@ -10,11 +10,13 @@ import java.util.List;
 
 public interface AddMedicalRecordContract {
     interface View extends BaseView{
-        void showError(Throwable e);
+        void showError(String e);
         void getDrugs(List<Drug> drugs);
+        void showSoldDrugs(List<String> soldDrugs);
     }
     interface Presenter extends BasePresenter<View>{
-        long addMedicalRecord(String date, List<Drug> drugs);
+        long addMedicalRecord(int patientId,int drugId,String date);
         void getDrug();
+        void getSoldDrugs(int patientId);
     }
 }
