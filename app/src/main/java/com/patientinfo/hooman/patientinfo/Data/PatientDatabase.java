@@ -171,6 +171,16 @@ public class PatientDatabase extends SQLiteOpenHelper {
         }
 
     }
+    public boolean deleteUser(int id){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        boolean patientDelete =  sqLiteDatabase.delete(TBL_PATIENT,COL_TBLPATIENT_ID+" = "+id,null) >0;
+        boolean visitDelete = sqLiteDatabase.delete(TBL_VISIT,COL_TBLVISIT_ID_PATIENT+" = "+id,null)>0;
+        if(patientDelete){
+            return true;
+        }else{
+            return false;
+        }
+    }
        /* public long addSoldDrug(int patientId, int drug,String date) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_TBLVISIT_ID_SOLD_DRUG, drug);

@@ -29,12 +29,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.PatientSea
     List<Patient> patientList;
     Context context;
     Activity activity;
-   // PatientDatabase patientDatabase;
+    PatientDatabase patientDatabase;
     public SearchAdapter(Context context,List<Patient> patientList,Activity activity){
         this.patientList = patientList;
         this.context = context;
         this.activity = activity;
-        //patientDatabase = new PatientDatabase(context);
+        patientDatabase = new PatientDatabase(context);
     }
     @NonNull
     @Override
@@ -65,6 +65,24 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.PatientSea
                 infoFragment.setArguments(bundle);
                 FragmentManager fragmentManager = ((FragmentActivity)activity).getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.mainFrame,infoFragment).commit();
+
+            }
+        });
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean result;
+                result = patientDatabase.deleteUser(patient.getId());
+                if(result){
+                    Toast.makeText(context, "بیمار با موفقیت حذف گردید", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(context, "مشکلی در حذف بیمار بوجود آمد", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
             }
         });

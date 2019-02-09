@@ -13,5 +13,6 @@ public interface SearchContract {
     }
     interface Presenter extends BasePresenter<View>{
         void getSearchedPatient(CharSequence charSequence,int id);
+        void deletePatient(int id);
     }
 }

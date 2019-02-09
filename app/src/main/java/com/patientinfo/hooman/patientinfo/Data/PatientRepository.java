@@ -51,4 +51,9 @@ public class PatientRepository implements PatientDataSource {
         return localDataSource.getDrug();
     }
 
+    @Override
+    public boolean deletePatient(int id) {
+        return localDataSource.deletePatient(id);
+    }
+
 }

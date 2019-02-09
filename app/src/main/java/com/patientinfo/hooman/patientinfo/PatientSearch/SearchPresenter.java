@@ -55,6 +55,11 @@ public class SearchPresenter implements SearchContract.Presenter {
         }
     }
 
+    @Override
+    public void deletePatient(int id) {
+
+    }
+
     private List<Patient> getPatientInfo(Cursor result) {
         List<Patient> patients = new ArrayList<>();
 

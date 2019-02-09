@@ -67,5 +67,10 @@ public class LocalDataSource implements PatientDataSource {
         return patientDatabase.getDrug();
     }
 
+    @Override
+    public boolean deletePatient(int id) {
+        return patientDatabase.deleteUser(id);
+    }
+
 
 }
