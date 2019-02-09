@@ -2,11 +2,13 @@ package com.patientinfo.hooman.patientinfo.PatientAddMedicalRecord;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,6 +19,8 @@ import android.widget.Toast;
 
 import com.patientinfo.hooman.patientinfo.Base.BaseFragment;
 import com.patientinfo.hooman.patientinfo.Data.Drug;
+import com.patientinfo.hooman.patientinfo.Data.MedicalRecord;
+import com.patientinfo.hooman.patientinfo.Data.PatientDatabase;
 import com.patientinfo.hooman.patientinfo.Data.PatientRepository;
 import com.patientinfo.hooman.patientinfo.PatientInfo.InfoFragment;
 import com.patientinfo.hooman.patientinfo.R;
@@ -34,10 +38,10 @@ public class AddMedicalRecordFragment extends BaseFragment implements AddMedical
     private String date;
     private PersianCalendar currentDate;
     RecyclerView rvMedicalRecord;
-    private AddMedicalAdapter rvAddMedicalRecordAdapter;
+
     private AddMedicalAdapter rvViewMedicalRecordAdapter;
     private ArrayList<Item> itemList;
-    private ArrayList<String> soldDrugs;
+    private List<MedicalRecord> soldDrugs;
     Spinner spAddDrug;
     private ArrayAdapter<String> spAdaper;
     final int[] drugId = new int[1];
@@ -62,6 +66,10 @@ public class AddMedicalRecordFragment extends BaseFragment implements AddMedical
 
     @Override
     public void setupViews() {
+        rvMedicalRecord = rootView.findViewById(R.id.rv_addMedicalRecordFragment_list);
+        rvViewMedicalRecordAdapter = new AddMedicalAdapter(getViewContext(),soldDrugs);
+        rvMedicalRecord.setLayoutManager(new LinearLayoutManager(getViewContext(),LinearLayoutManager.VERTICAL,false));
+        rvMedicalRecord.setAdapter(rvViewMedicalRecordAdapter);
         txtDate = rootView.findViewById(R.id.txt_row_addDrug_date);
         txtDate.setText(date);
         spAdaper = new ArrayAdapter<>(getViewContext(),android.R.layout.simple_spinner_item,spDrugs);
@@ -76,7 +84,6 @@ public class AddMedicalRecordFragment extends BaseFragment implements AddMedical
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long id) {
                 drugId[0] = (int)id+1;
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -95,8 +102,8 @@ public class AddMedicalRecordFragment extends BaseFragment implements AddMedical
                 }
             }
         });
-        // rvMedicalRecord = rootView.findViewById(R.id.rv_addMedicalRecordFragment_list);
-        //rvAddMedicalRecordAdapter = new AddMedicalAdapter(getViewContext(),itemList,spDrugs);
+
+
         //rvMedicalRecord.setLayoutManager(new LinearLayoutManager(getViewContext(),LinearLayoutManager.VERTICAL,false));
         // rvMedicalRecord.setItemAnimator(new DefaultItemAnimator());
     }
@@ -114,10 +121,8 @@ public class AddMedicalRecordFragment extends BaseFragment implements AddMedical
     }
 
     @Override
-    public void showSoldDrugs(List<String> soldDrugs) {
-        for(String soldDrug : soldDrugs){
-            this.soldDrugs.add(soldDrug);
-        }
+    public void showSoldDrugs(List<MedicalRecord> soldDrugs) {
+        this.soldDrugs = soldDrugs;
     }
 
     @Override
@@ -130,6 +135,7 @@ public class AddMedicalRecordFragment extends BaseFragment implements AddMedical
         super.onStart();
         presenter.attachView(this);
         presenter.getDrug();
+        presenter.getSoldDrugs(InfoFragment.patientId);
         setupViews();
     }
 

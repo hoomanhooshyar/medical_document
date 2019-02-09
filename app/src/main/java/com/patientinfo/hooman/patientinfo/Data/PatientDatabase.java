@@ -139,25 +139,12 @@ public class PatientDatabase extends SQLiteOpenHelper {
         }
     }
     public Cursor getSoldDrug(int patientId){
-        String query = "SELECT "+COL_TBLDRUG_NAME+" FROM "+TBL_DRUG + " INNER JOIN "+TBL_VISIT+" ON "+
-                TBL_VISIT+"."+COL_TBLVISIT_ID_PATIENT+"="+TBL_PATIENT+"."+COL_TBLPATIENT_ID+" AND "+
-                TBL_VISIT+"."+COL_TBLVISIT_ID_PATIENT+"="+patientId+";";
+        String query = "SELECT "+COL_TBLDRUG_NAME+","+COL_TBLVISIT_DATE_VISIT+" FROM "+TBL_DRUG + " INNER JOIN "+TBL_VISIT+" ON "+
+                TBL_VISIT+"."+COL_TBLVISIT_ID_SOLD_DRUG+" = "+TBL_DRUG+"."+COL_TBLDRUG_ID+" AND "+
+                TBL_VISIT+"."+COL_TBLVISIT_ID_PATIENT+" = "+patientId+";";
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         return sqLiteDatabase.rawQuery(query,null);
     }
-   /* public long addSoldDrug(int patientId, int drug,String date) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_TBLVISIT_ID_SOLD_DRUG, drug);
-        contentValues.put(COL_TBLVISIT_ID_PATIENT, patientId);
-        contentValues.put(COL_TBLVISIT_DATE_VISIT,date);
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        long result = sqLiteDatabase.insert(TBL_VISIT, null, contentValues);
-        if (result > 0) {
-            return result;
-        } else {
-            return result;
-        }
-    }*/
 
     public long addVisit(int patientId, String visitDate, int soldDrug) {
         ContentValues contentValues = new ContentValues();
@@ -184,6 +171,19 @@ public class PatientDatabase extends SQLiteOpenHelper {
         }
 
     }
+       /* public long addSoldDrug(int patientId, int drug,String date) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_TBLVISIT_ID_SOLD_DRUG, drug);
+        contentValues.put(COL_TBLVISIT_ID_PATIENT, patientId);
+        contentValues.put(COL_TBLVISIT_DATE_VISIT,date);
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        long result = sqLiteDatabase.insert(TBL_VISIT, null, contentValues);
+        if (result > 0) {
+            return result;
+        } else {
+            return result;
+        }
+    }*/
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
