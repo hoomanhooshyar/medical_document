@@ -41,7 +41,7 @@ public class PatientDatabase extends SQLiteOpenHelper {
             COL_TBLPATIENT_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
             COL_TBLPATIENT_NAME + " NVARCHAR(100) NOT NULL," +
             COL_TBLPATIENT_FAMILY + " NVARCHAR(100) NOT NULL," +
-            COL_TBLPATIENT_BIRTHDAY + " NVARCHAR(12) NOT NULL," +
+            COL_TBLPATIENT_BIRTHDAY + " NVARCHAR(12)," +
             COL_TBLPATIENT_CELL + " NVARCHAR(12) NOT NULL," +
             COL_TBLPATIENT_PHONE + " NVARCHAR(12) NOT NULL," +
             COL_TBLPATIENT_IDNUMBER + " NVARCHAR(12) NOT NULL," +
@@ -179,6 +179,31 @@ public class PatientDatabase extends SQLiteOpenHelper {
             return true;
         }else{
             return false;
+        }
+    }
+    public Cursor getPatient(int id){
+        String query = "SELECT * FROM "+TBL_PATIENT+" WHERE "+COL_TBLPATIENT_ID+" = "+id+";";
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        return sqLiteDatabase.rawQuery(query,null);
+    }
+    public long updatePatinet(int id,Patient patient){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("disease",patient.getDisease());
+        contentValues.put("name",patient.getName());
+        contentValues.put("family",patient.getFamily());
+        contentValues.put("birth_day",patient.getBirth_day());
+        contentValues.put("mobile",patient.getMobile());
+        contentValues.put("phone",patient.getPhone());
+        contentValues.put("id_number",patient.getId_number());
+        contentValues.put("address",patient.getAddress());
+        contentValues.put("city",patient.getCity());
+        contentValues.put("disease",patient.getDisease());
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        long result = sqLiteDatabase.update(TBL_PATIENT,contentValues,"id = "+id,null);
+        if(result > 0){
+            return result;
+        }else{
+            return result;
         }
     }
        /* public long addSoldDrug(int patientId, int drug,String date) {

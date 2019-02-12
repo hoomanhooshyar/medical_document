@@ -18,4 +18,6 @@ public interface PatientDataSource {
     long addMedicalRecord(int patientId, String visitDate, int soldDrug);
     Cursor getDrug();
     boolean deletePatient(int id);
+    Cursor getPatient(int id);
+    long updatePatient(int id,Patient patient);
 }

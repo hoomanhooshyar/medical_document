@@ -72,5 +72,15 @@ public class LocalDataSource implements PatientDataSource {
         return patientDatabase.deleteUser(id);
     }
 
+    @Override
+    public Cursor getPatient(int id) {
+        return patientDatabase.getPatient(id);
+    }
+
+    @Override
+    public long updatePatient(int id, Patient patient) {
+        return patientDatabase.updatePatinet(id,patient);
+    }
+
 
 }

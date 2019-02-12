@@ -8,8 +8,9 @@ import java.util.List;
 
 public interface SearchContract {
     interface View extends BaseView{
-        void showError(Throwable e);
+        void showError(String e);
         void showSearchedPatients(List<Patient> patients);
+        void updateList(boolean delete);
     }
     interface Presenter extends BasePresenter<View>{
         void getSearchedPatient(CharSequence charSequence,int id);

@@ -56,5 +56,14 @@
             app:tab_text="@string/txt_patient_insert"
             app:unselected_tab_icon="@drawable/insert_patient_unselect">
         </com.ss.bottomnavigation.TabItem>
+        <com.ss.bottomnavigation.TabItem
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:tab_icon="@drawable/send_sms"
+            app:tab_text="@string/txt_sms_send"
+            app:unselected_tab_icon="@drawable/send_sms_unselect">
+
+        </com.ss.bottomnavigation.TabItem>
     </com.ss.bottomnavigation.BottomNavigation>
 </android.support.constraint.ConstraintLayout>

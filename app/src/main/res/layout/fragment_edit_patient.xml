@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <EditText
             android:id="@+id/txt_fragmentEdit_disease"
             android:layout_width="0dp"
@@ -37,6 +38,33 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_fragmentEdit_disease" />
+        <EditText
+            android:id="@+id/txt_fragmentEdit_family"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:hint="@string/txt_family"
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_fragmentEdit_name" />
+        <EditText
+            android:id="@+id/txt_fragmentEdit_birthDay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_fragmentEdit_family"/>
 
         <EditText
             android:id="@+id/txt_fragmentEdit_phone"
@@ -84,31 +112,18 @@
             app:layout_constraintTop_toBottomOf="@+id/txt_fragmentEdit_idNumber" />
 
         <EditText
-            android:id="@+id/txt_fragmentEdit_birthDay"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:hint="@string/txt_birthday"
-            android:inputType="textPersonName"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_fragmentEdit_family" />
-
-        <EditText
             android:id="@+id/txt_fragmentEdit_address"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:ems="10"
+            android:gravity="top"
             android:hint="@string/txt_address"
-            android:inputType="textPersonName"
-            android:textAlignment="center"
+            android:inputType="textMultiLine"
+            android:lines="100"
+            android:textDirection="rtl"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_fragmentEdit_city" />
@@ -127,33 +142,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_fragmentEdit_phone" />
-
-        <EditText
-            android:id="@+id/txt_fragmentEdit_family"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:hint="@string/txt_family"
-            android:inputType="textPersonName"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_fragmentEdit_name" />
-
         <Button
             android:id="@+id/btn_fragmentEdit_edit"
-            android:layout_width="0dp"
+            android:layout_width="395dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/btn_register"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_fragmentEdit_address" />
     </android.support.constraint.ConstraintLayout>
-
 </ScrollView>

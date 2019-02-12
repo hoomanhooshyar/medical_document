@@ -1,23 +1,15 @@
 package com.patientinfo.hooman.patientinfo.PatinetInsert;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.patientinfo.hooman.patientinfo.Base.BaseFragment;
-import com.patientinfo.hooman.patientinfo.Classes.G;
 import com.patientinfo.hooman.patientinfo.Data.Patient;
 import com.patientinfo.hooman.patientinfo.Data.PatientRepository;
 import com.patientinfo.hooman.patientinfo.R;
@@ -95,16 +87,16 @@ public class InsertFragment extends BaseFragment implements InsertContract.View 
 
     @Override
     public void setupViews() {
-        edtName = rootView.findViewById(R.id.txtName);
-        edtFamily = rootView.findViewById(R.id.txtFamily);
-        edtDisease = rootView.findViewById(R.id.txtDisease);
-        edtPhone = rootView.findViewById(R.id.txtPhone);
-        edtMobile = rootView.findViewById(R.id.txtMobile);
-        edtIdnumber = rootView.findViewById(R.id.txtIdnumber);
-        edtCity = rootView.findViewById(R.id.txtCity);
-        edtAddress = rootView.findViewById(R.id.txtAddress);
-        edtBirthday = rootView.findViewById(R.id.txtBirthday);
-        btnRegister = rootView.findViewById(R.id.btnRegister);
+        edtName = rootView.findViewById(R.id.txt_fragmentEdit_name);
+        edtFamily = rootView.findViewById(R.id.txt_fragmentEdit_family);
+        edtDisease = rootView.findViewById(R.id.txt_fragmentEdit_disease);
+        edtPhone = rootView.findViewById(R.id.txt_fragmentEdit_phone);
+        edtMobile = rootView.findViewById(R.id.txt_fragmentEdit_mobile);
+        edtIdnumber = rootView.findViewById(R.id.txt_fragmentEdit_idNumber);
+        edtCity = rootView.findViewById(R.id.txt_fragmentEdit_city);
+        edtAddress = rootView.findViewById(R.id.txt_fragmentEdit_address);
+        edtBirthday = rootView.findViewById(R.id.txt_fragmentEdit_birthDay);
+        btnRegister = rootView.findViewById(R.id.btn_fragmentEdit_edit);
         initDate = new PersianCalendar();
         initDate.setPersianDate(1369, 4, 4);
         persianDatePicker = new PersianDatePickerDialog(getViewContext())

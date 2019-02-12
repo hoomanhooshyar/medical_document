@@ -208,7 +208,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
     }
 
     @Override
-    public void showError(Throwable e) {
+    public void showError(String e) {
         Toast.makeText(getViewContext(), e.toString(), Toast.LENGTH_SHORT).show();
     }
 
@@ -222,6 +222,15 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
             searchAdapter = new SearchAdapter(getViewContext(), searchedPatient,getActivity());
             rvSearchFragmentItems.setAdapter(searchAdapter);
             searchAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void updateList(boolean delete) {
+        if(delete){
+            showError("بیمار با موفقیت حذف شد");
+            showSearchedPatients(searchedPatient);
+
         }
     }
 

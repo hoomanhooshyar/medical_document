@@ -56,4 +56,14 @@ public class PatientRepository implements PatientDataSource {
         return localDataSource.deletePatient(id);
     }
 
+    @Override
+    public Cursor getPatient(int id) {
+        return localDataSource.getPatient(id);
+    }
+
+    @Override
+    public long updatePatient(int id, Patient patient) {
+        return localDataSource.updatePatient(id,patient);
+    }
+
 }

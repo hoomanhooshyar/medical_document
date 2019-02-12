@@ -20,6 +20,8 @@ import android.widget.Toast;
 import com.patientinfo.hooman.patientinfo.Classes.G;
 import com.patientinfo.hooman.patientinfo.Data.Patient;
 import com.patientinfo.hooman.patientinfo.Data.PatientDatabase;
+import com.patientinfo.hooman.patientinfo.Data.PatientRepository;
+import com.patientinfo.hooman.patientinfo.PatientEdit.EditFragment;
 import com.patientinfo.hooman.patientinfo.PatientInfo.InfoFragment;
 import com.patientinfo.hooman.patientinfo.R;
 
@@ -30,11 +32,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.PatientSea
     Context context;
     Activity activity;
     PatientDatabase patientDatabase;
+    private SearchContract.Presenter presenter;
     public SearchAdapter(Context context,List<Patient> patientList,Activity activity){
         this.patientList = patientList;
         this.context = context;
         this.activity = activity;
         patientDatabase = new PatientDatabase(context);
+        presenter = new SearchPresenter(new PatientRepository());
     }
     @NonNull
     @Override
@@ -71,19 +75,27 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.PatientSea
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean result;
+                /*boolean result;
                 result = patientDatabase.deleteUser(patient.getId());
                 if(result){
                     Toast.makeText(context, "بیمار با موفقیت حذف گردید", Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(context, "مشکلی در حذف بیمار بوجود آمد", Toast.LENGTH_SHORT).show();
-                }
+                }*/
+                int patientId = patient.getId();
+                presenter.deletePatient(patientId);
+
             }
         });
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Bundle bundle = new Bundle();
+                bundle.putInt("id",patient.getId());
+                EditFragment editFragment = new EditFragment();
+                editFragment.setArguments(bundle);
+                FragmentManager fragmentManager = ((FragmentActivity)activity).getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.mainFrame,editFragment).commit();
             }
         });
     }

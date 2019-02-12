@@ -57,7 +57,9 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void deletePatient(int id) {
-
+        boolean result;
+        result = patientDatabase.deleteUser(id);
+        view.updateList(result);
     }
 
     private List<Patient> getPatientInfo(Cursor result) {

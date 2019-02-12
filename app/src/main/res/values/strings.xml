@@ -41,4 +41,5 @@
     <string name="txt_row_addDrug_soledDrugTitle">داروهای تجویز شده:</string>
     <string name="btn_addMedicalRecordFragment_add">اضافه کردن دارو</string>
     <string name="btn_row_addDrug_addDrug">اضافه کردن دارو</string>
+    <string name="txt_sms_send">ارسال پیامک</string>
 </resources>
