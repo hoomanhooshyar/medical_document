@@ -7,7 +7,10 @@ import android.util.Log;
 
 import com.patientinfo.hooman.patientinfo.Classes.G;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Single;
 
 public class LocalDataSource implements PatientDataSource {
     private PatientDatabase patientDatabase = new PatientDatabase(G.context);
@@ -80,6 +83,31 @@ public class LocalDataSource implements PatientDataSource {
     @Override
     public long updatePatient(int id, Patient patient) {
         return patientDatabase.updatePatinet(id,patient);
+    }
+
+    @Override
+    public Cursor getDisease() {
+        return patientDatabase.getDisease();
+    }
+
+    @Override
+    public Cursor getCity() {
+        return patientDatabase.getCity();
+    }
+
+    @Override
+    public Cursor getNumberByCity(String city) {
+        return patientDatabase.getNumberByCity(city);
+    }
+
+    @Override
+    public Cursor getNumberByDisease(String disease) {
+        return patientDatabase.getNumberByDisease(disease);
+    }
+
+    @Override
+    public Single<String> sendMessage(ArrayList<String> numbers, String message) {
+        return null;
     }
 
 

@@ -5,4 +5,13 @@
     <color name="colorAccent">#D81B60</color>
     <color name="unselected_item">#fc0000</color>
     <color name="selected_item">#133800</color>
+    <color name="start_button">#2E7D32</color>
+    <color name="end_button">#A5D6A7</color>
+    <color name="pressed_button">#133800</color>
+    <color name="app_background">#CC002638</color>
+    <color name="hint_color">#FFFFFF</color>
+    <color name="button_text">#380013</color>
+    <color name="inner_fragment_background">#EE380013</color>
+    <color name="start_spinner">#EE380013</color>
+    <color name="end_spinner">#EE8B0338</color>
 </resources>

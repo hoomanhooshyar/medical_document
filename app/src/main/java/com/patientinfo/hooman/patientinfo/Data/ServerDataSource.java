@@ -1,100 +1,115 @@
 package com.patientinfo.hooman.patientinfo.Data;
 
 import android.database.Cursor;
-import android.database.DatabaseUtils;
-import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 
 import io.reactivex.Single;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-public class PatientRepository implements PatientDataSource {
-    private LocalDataSource localDataSource = new LocalDataSource();
-    private ServerDataSource serverDataSource = new ServerDataSource();
+public class ServerDataSource implements PatientDataSource {
+    private ApiService apiService;
+
+    public ServerDataSource() {
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.52/patientinfo/")
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        apiService = retrofit.create(ApiService.class);
+    }
+
     @Override
     public long insertPatient(Patient patient) {
-        return localDataSource.insertPatient(patient);
+        return 0;
     }
 
     @Override
     public Cursor searchPatient(CharSequence charSequence) {
-        return localDataSource.searchPatient(charSequence);
+        return null;
     }
 
     @Override
     public Cursor searchPatientByDisease(CharSequence charSequence) {
-        return localDataSource.searchPatientByDisease(charSequence);
+        return null;
     }
 
     @Override
     public Cursor searchPatientByIdnumber(CharSequence charSequence) {
-        return localDataSource.searchPatientByIdnumber(charSequence);
+        return null;
     }
 
     @Override
     public Cursor searchPatientByCity(CharSequence charSequence) {
-        return localDataSource.searchPatientByCity(charSequence);
+        return null;
     }
 
     @Override
     public long updatePatientDesc(int id, String desc) {
-        return localDataSource.updatePatientDesc(id,desc);
+        return 0;
     }
 
     @Override
     public long addDrug(String drugName) {
-        return localDataSource.addDrug(drugName);
+        return 0;
     }
 
     @Override
     public long addMedicalRecord(int patientId, String visitDate, int soldDrug) {
-        return localDataSource.addMedicalRecord(patientId,visitDate,soldDrug);
+        return 0;
     }
 
     @Override
     public Cursor getDrug() {
-        return localDataSource.getDrug();
+        return null;
     }
 
     @Override
     public boolean deletePatient(int id) {
-        return localDataSource.deletePatient(id);
+        return false;
     }
 
     @Override
     public Cursor getPatient(int id) {
-        return localDataSource.getPatient(id);
+        return null;
     }
 
     @Override
     public long updatePatient(int id, Patient patient) {
-        return localDataSource.updatePatient(id,patient);
+        return 0;
     }
 
     @Override
     public Cursor getDisease() {
-        return localDataSource.getDisease();
+        return null;
     }
 
     @Override
     public Cursor getCity() {
-        return localDataSource.getCity();
+        return null;
     }
 
     @Override
     public Cursor getNumberByCity(String city) {
-        return localDataSource.getNumberByCity(city);
+        return null;
     }
 
     @Override
     public Cursor getNumberByDisease(String disease) {
-        return localDataSource.getNumberByDisease(disease);
+        return null;
     }
 
     @Override
     public Single<String> sendMessage(ArrayList<String> numbers, String message) {
-        return serverDataSource.sendMessage(numbers,message);
+        return apiService.sendNumber(numbers,message);
     }
-
 
 }

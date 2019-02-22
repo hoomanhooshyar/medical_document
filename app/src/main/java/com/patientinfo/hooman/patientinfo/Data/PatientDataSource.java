@@ -3,6 +3,7 @@ package com.patientinfo.hooman.patientinfo.Data;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Single;
@@ -20,4 +21,9 @@ public interface PatientDataSource {
     boolean deletePatient(int id);
     Cursor getPatient(int id);
     long updatePatient(int id,Patient patient);
+    Cursor getDisease();
+    Cursor getCity();
+    Cursor getNumberByCity(String city);
+    Cursor getNumberByDisease(String disease);
+    Single<String> sendMessage(ArrayList<String> numbers,String message);
 }

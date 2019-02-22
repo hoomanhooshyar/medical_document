@@ -1,11 +1,29 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textViewStyle">@style/AllTextViewFont</item>
+        <item name="android:editTextStyle">@style/AllEdittextFont</item>
+        <item name="android:button">@style/AllButtonFont</item>
+        <item name="android:radioButtonStyle">@style/AllRadiobuttonFont</item>
+        <item name="android:textColorHint">@color/hint_color</item>
     </style>
-
+    <style name="AllTextViewFont" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/behdad</item>
+    </style>
+    <style name="AllEdittextFont" parent="android:Widget.EditText">
+        <item name="android:fontFamily">@font/behdad</item>
+    </style>
+    <style name="AllButtonFont" parent="android:Widget.Button">
+        <item name="android:fontFamily">@font/behdad</item>
+    </style>
+    <style name="AllRadiobuttonFont" parent="android:Widget.CompoundButton.RadioButton">
+        <item name="android:fontFamily">@font/behdad</item>
+    </style>
+    <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+    </style>
 </resources>

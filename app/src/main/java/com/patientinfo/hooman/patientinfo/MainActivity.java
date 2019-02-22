@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.patientinfo.hooman.patientinfo.PatientAddDrug.AddDrugFragment;
 import com.patientinfo.hooman.patientinfo.PatientSearch.SearchFragment;
 import com.patientinfo.hooman.patientinfo.PatinetInsert.InsertFragment;
+import com.patientinfo.hooman.patientinfo.PatinetSendSms.SmsSendFragment;
 import com.ss.bottomnavigation.BottomNavigation;
 import com.ss.bottomnavigation.events.OnSelectedItemChangeListener;
 
@@ -38,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
                         transaction.replace(R.id.mainFrame,new InsertFragment());
                         transaction.commit();
                         break;
+                    case R.id.tab_send_sms:
+                        transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.mainFrame,new SmsSendFragment());
+                        transaction.commit();
                 }
             }
         });

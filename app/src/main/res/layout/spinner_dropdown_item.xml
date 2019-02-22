@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/dropdownListPreferredItemHeight"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:textColor="@color/hint_color"
+    android:ellipsize="marquee"
+    android:layoutDirection="rtl"
+    android:padding="4dp"
+    app:layout_constraintCircleRadius="10dp"/>
+

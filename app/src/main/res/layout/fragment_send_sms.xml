@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    android:layoutDirection="rtl">
+
+    <Spinner
+        android:id="@+id/sp_smsFragment_cat"
+        style="@style/spinnerDropDownItemStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:popupBackground="@drawable/spinner_dropdown_list_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/rg_smsFragment_cat"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/rg_smsFragment_cat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/rb_smsFragment_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rb_smsFragment_city"
+            android:textColor="@color/hint_color"
+            android:textSize="22sp" />
+
+        <RadioButton
+            android:id="@+id/rb_smsFragment_disease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rb_smsFragment_disease"
+            android:textColor="@color/hint_color"
+            android:textSize="22sp" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/edt_smsFragment_message"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/edittext_sendsms_style"
+        android:ems="10"
+        android:gravity="top"
+        android:hint="@string/txt_send_sms_hint"
+        android:inputType="textMultiLine"
+        android:lines="1000000"
+        android:padding="4dp"
+        android:scrollbars="vertical"
+        android:textColor="@color/hint_color"
+        android:textDirection="rtl"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/btn_smsFragment_send"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rg_smsFragment_cat"
+        app:layout_constraintVertical_weight="0.5"
+        tools:ignore="LabelFor" />
+
+    <Button
+        android:id="@+id/btn_smsFragment_send"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/button_style"
+        android:text="@string/btn_smsFragment_send"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt_smsFragment_message"
+        app:layout_constraintVertical_weight="0.05" />
+
+
+</android.support.constraint.ConstraintLayout>

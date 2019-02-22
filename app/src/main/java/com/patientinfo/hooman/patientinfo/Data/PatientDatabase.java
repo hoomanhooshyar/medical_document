@@ -206,6 +206,28 @@ public class PatientDatabase extends SQLiteOpenHelper {
             return result;
         }
     }
+    public Cursor getDisease(){
+        String query = "SELECT DISTINCT "+COL_TBLPATIENT_DISEASE+" FROM "+TBL_PATIENT+";";
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        return sqLiteDatabase.rawQuery(query,null);
+    }
+    public Cursor getCity(){
+        String query = "SELECT DISTINCT "+COL_TBLPATIENT_CITY+" FROM "+TBL_PATIENT+";";
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        return sqLiteDatabase.rawQuery(query,null);
+    }
+    public Cursor getNumberByCity(String city){
+        String query = "SELECT "+COL_TBLPATIENT_CELL+" FROM "+TBL_PATIENT+" WHERE "+
+                COL_TBLPATIENT_CITY+" LIKE '"+city+"';";
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        return sqLiteDatabase.rawQuery(query,null);
+    }
+    public Cursor getNumberByDisease(String disease){
+        String query = "SELECT "+COL_TBLPATIENT_CELL+" FROM "+TBL_PATIENT+" WHERE "+
+                COL_TBLPATIENT_DISEASE+" LIKE '"+disease+"';";
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        return sqLiteDatabase.rawQuery(query,null);
+    }
        /* public long addSoldDrug(int patientId, int drug,String date) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_TBLVISIT_ID_SOLD_DRUG, drug);

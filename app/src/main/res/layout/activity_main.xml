@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
     </android.support.constraint.ConstraintLayout>
+
     <com.ss.bottomnavigation.BottomNavigation
         android:id="@+id/bn_main"
         android:layout_width="match_parent"
@@ -34,8 +35,7 @@
             android:layout_weight="1"
             app:tab_icon="@drawable/add_ill"
             app:tab_text="@string/txt_ill_add"
-            app:unselected_tab_icon="@drawable/add_ill_unselect">
-        </com.ss.bottomnavigation.TabItem>
+            app:unselected_tab_icon="@drawable/add_ill_unselect"></com.ss.bottomnavigation.TabItem>
 
         <com.ss.bottomnavigation.TabItem
             android:id="@+id/tab_patient_search"
@@ -44,8 +44,7 @@
             android:layout_weight="1"
             app:tab_icon="@drawable/search_patient"
             app:tab_text="@string/txt_patient_search"
-            app:unselected_tab_icon="@drawable/search_patient_unselected">
-        </com.ss.bottomnavigation.TabItem>
+            app:unselected_tab_icon="@drawable/search_patient_unselected"></com.ss.bottomnavigation.TabItem>
 
         <com.ss.bottomnavigation.TabItem
             android:id="@+id/tab_patient_add"
@@ -54,9 +53,10 @@
             android:layout_weight="1"
             app:tab_icon="@drawable/insert_patient"
             app:tab_text="@string/txt_patient_insert"
-            app:unselected_tab_icon="@drawable/insert_patient_unselect">
-        </com.ss.bottomnavigation.TabItem>
+            app:unselected_tab_icon="@drawable/insert_patient_unselect"></com.ss.bottomnavigation.TabItem>
+
         <com.ss.bottomnavigation.TabItem
+            android:id="@+id/tab_send_sms"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

@@ -1,5 +1,8 @@
 package com.patientinfo.hooman.patientinfo.PatientSearch;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
@@ -51,8 +54,8 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
         spinnerItems.add("بیماری");
         spinnerItems.add("کد ملی");
         spinnerItems.add("شهر");
-        spinnerAdapter = new ArrayAdapter<String>(getViewContext(), android.R.layout.simple_spinner_item, spinnerItems);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAdapter = new ArrayAdapter<String>(getViewContext(), R.layout.spinner_item, spinnerItems);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
     }
 
     @Override

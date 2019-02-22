@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/inner_fragment_background">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,6 +21,7 @@
             android:hint="@string/txt_disease"
             android:inputType="textPersonName"
             android:textAlignment="center"
+            android:textColor="@color/hint_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,9 +37,11 @@
             android:hint="@string/txt_name"
             android:inputType="textPersonName"
             android:textAlignment="center"
+            android:textColor="@color/hint_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_fragmentEdit_disease" />
+
         <EditText
             android:id="@+id/txt_fragmentEdit_family"
             android:layout_width="0dp"
@@ -49,9 +53,11 @@
             android:hint="@string/txt_family"
             android:inputType="textPersonName"
             android:textAlignment="center"
+            android:textColor="@color/hint_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_fragmentEdit_name" />
+
         <EditText
             android:id="@+id/txt_fragmentEdit_birthDay"
             android:layout_width="0dp"
@@ -60,11 +66,13 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:ems="10"
+            android:hint="@string/txt_birthday"
             android:inputType="textPersonName"
             android:textAlignment="center"
+            android:textColor="@color/hint_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_fragmentEdit_family"/>
+            app:layout_constraintTop_toBottomOf="@id/txt_fragmentEdit_family" />
 
         <EditText
             android:id="@+id/txt_fragmentEdit_phone"
@@ -77,6 +85,7 @@
             android:hint="@string/txt_phone"
             android:inputType="phone"
             android:textAlignment="center"
+            android:textColor="@color/hint_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_fragmentEdit_birthDay" />
@@ -92,6 +101,7 @@
             android:hint="@string/txt_idNumber"
             android:inputType="number"
             android:textAlignment="center"
+            android:textColor="@color/hint_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_fragmentEdit_mobile" />
@@ -107,6 +117,7 @@
             android:hint="@string/txt_city"
             android:inputType="textPersonName"
             android:textAlignment="center"
+            android:textColor="@color/hint_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_fragmentEdit_idNumber" />
@@ -123,6 +134,7 @@
             android:hint="@string/txt_address"
             android:inputType="textMultiLine"
             android:lines="100"
+            android:textColor="@color/hint_color"
             android:textDirection="rtl"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -139,9 +151,11 @@
             android:hint="@string/txt_mobile"
             android:inputType="phone"
             android:textAlignment="center"
+            android:textColor="@color/hint_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_fragmentEdit_phone" />
+
         <Button
             android:id="@+id/btn_fragmentEdit_edit"
             android:layout_width="395dp"
@@ -150,7 +164,9 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:background="@drawable/button_style"
             android:text="@string/btn_register"
+            android:textColor="@color/button_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

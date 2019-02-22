@@ -32,7 +32,7 @@
     <string name="btn_fragmentMainSearch_ok">تایید</string>
     <string name="btn_fragmentMainSearch_cancel">انصراف</string>
     <string name="btn_patientInfo_summary">سوابق بیمار</string>
-    <string name="btn_patientInfo_edit">ویرایش شرح حال</string>
+    <string name="btn_patientInfo_edit">ویرایش</string>
     <string name="txt_drug_insert">اضافه کردن دارو</string>
     <string name="txt_addDrugFragment_title">نام دارو را وارد کنید</string>
     <string name="btn_addDrugFragment_save">ثبت</string>
@@ -42,4 +42,8 @@
     <string name="btn_addMedicalRecordFragment_add">اضافه کردن دارو</string>
     <string name="btn_row_addDrug_addDrug">اضافه کردن دارو</string>
     <string name="txt_sms_send">ارسال پیامک</string>
+    <string name="rb_smsFragment_city">شهر</string>
+    <string name="rb_smsFragment_disease">بیماری</string>
+    <string name="btn_smsFragment_send">ارسال پیام</string>
+    <string name="txt_send_sms_hint">محل یادداشت متن پیامک</string>
 </resources>
