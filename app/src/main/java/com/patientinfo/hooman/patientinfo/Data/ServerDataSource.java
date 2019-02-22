@@ -11,6 +11,7 @@ import io.reactivex.Single;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class ServerDataSource implements PatientDataSource {
     private ApiService apiService;
@@ -20,9 +21,9 @@ public class ServerDataSource implements PatientDataSource {
                 .setLenient()
                 .create();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.52/patientinfo/")
+                .baseUrl("http://192.168.1.105/patientinfo/")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
         apiService = retrofit.create(ApiService.class);
     }

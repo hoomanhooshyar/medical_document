@@ -3,6 +3,10 @@ package com.patientinfo.hooman.patientinfo.PatientEdit;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +16,7 @@ import com.patientinfo.hooman.patientinfo.Base.BaseFragment;
 import com.patientinfo.hooman.patientinfo.Data.Patient;
 import com.patientinfo.hooman.patientinfo.Data.PatientRepository;
 import com.patientinfo.hooman.patientinfo.PatientInfo.InfoFragment;
+import com.patientinfo.hooman.patientinfo.PatientSearch.SearchFragment;
 import com.patientinfo.hooman.patientinfo.R;
 
 public class EditFragment extends BaseFragment implements EditContract.View {
@@ -26,6 +31,7 @@ public class EditFragment extends BaseFragment implements EditContract.View {
     EditText edtEditAddress;
     EditText edtEditBirthday;
     Button btnEdit;
+    Fragment searchFragment;
     private int id = 0;
     private Patient patient;
 
@@ -132,6 +138,28 @@ public class EditFragment extends BaseFragment implements EditContract.View {
         presenter.getPatient(id);
 
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(getView() == null){
+            return;
+        }
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if(keyEvent.getAction() == KeyEvent.ACTION_UP && i == KeyEvent.KEYCODE_BACK){
+                    searchFragment = new SearchFragment();
+                    FragmentManager fragmentManager = ((FragmentActivity)getActivity()).getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.mainFrame,searchFragment).commit();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override

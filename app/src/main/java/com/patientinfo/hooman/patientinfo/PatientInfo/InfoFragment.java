@@ -3,7 +3,11 @@ package com.patientinfo.hooman.patientinfo.PatientInfo;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +18,7 @@ import com.patientinfo.hooman.patientinfo.Base.BaseFragment;
 import com.patientinfo.hooman.patientinfo.Data.Patient;
 import com.patientinfo.hooman.patientinfo.Data.PatientRepository;
 import com.patientinfo.hooman.patientinfo.PatientAddMedicalRecord.AddMedicalRecordFragment;
+import com.patientinfo.hooman.patientinfo.PatientSearch.SearchFragment;
 import com.patientinfo.hooman.patientinfo.R;
 
 public class InfoFragment extends BaseFragment implements InfoContract.View {
@@ -31,6 +36,8 @@ public class InfoFragment extends BaseFragment implements InfoContract.View {
     private FragmentTransaction transaction;
     private InfoContract.Presenter presenter;
     Patient patient;
+    Fragment addMedicalRecordFragment;
+    Fragment searchFragment;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,9 +80,17 @@ public class InfoFragment extends BaseFragment implements InfoContract.View {
         btnSummary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.mainFrame,new AddMedicalRecordFragment());
-                transaction.commit();
+                Bundle bundle = new Bundle();
+                bundle.putInt("id",patientId);
+                bundle.putString("patient_name",patientName);
+                bundle.putString("patient_family",patientFamily);
+                bundle.putString("patient_id",patientIdNumber);
+                bundle.putString("patient_disease",patientDisease);
+                bundle.putString("patient_desc",patientDesc);
+                addMedicalRecordFragment = new AddMedicalRecordFragment();
+                addMedicalRecordFragment.setArguments(bundle);
+                FragmentManager fragmentManager = ((FragmentActivity)getActivity()).getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.mainFrame,addMedicalRecordFragment).commit();
             }
         });
 
@@ -109,6 +124,28 @@ public class InfoFragment extends BaseFragment implements InfoContract.View {
             presenter.attachView(this);
             setupViews();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(getView() == null){
+            return;
+        }
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if(keyEvent.getAction() == KeyEvent.ACTION_UP && i == KeyEvent.KEYCODE_BACK){
+                    searchFragment = new SearchFragment();
+                    FragmentManager fragmentManager = ((FragmentActivity)getActivity()).getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.mainFrame,searchFragment).commit();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override

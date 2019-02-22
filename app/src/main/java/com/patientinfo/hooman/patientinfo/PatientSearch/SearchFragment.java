@@ -1,8 +1,10 @@
 package com.patientinfo.hooman.patientinfo.PatientSearch;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -42,7 +45,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
     List<Patient> searchedPatient;
     SearchAdapter searchAdapter;
     int itemPosition = 0;
-
+    boolean twice = false;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -247,6 +250,41 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
         super.onStart();
         presenter.attachView(this);
         setupViews();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getView() == null) {
+            return;
+        }
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if (keyEvent.getAction() == KeyEvent.ACTION_UP && i == KeyEvent.KEYCODE_BACK) {
+                    if (twice) {
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        getActivity().finish();
+                        System.exit(0);
+                    }else if(!twice){
+                        Toast.makeText(getViewContext(), "برای خروج دوباره دکمه بازگشت را کلیک کنید", Toast.LENGTH_SHORT).show();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                twice = false;
+                            }
+                        },2000);
+                        twice = true;
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     @Override

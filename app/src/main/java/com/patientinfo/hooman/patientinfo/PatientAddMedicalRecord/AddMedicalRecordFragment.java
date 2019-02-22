@@ -5,10 +5,14 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -38,7 +42,7 @@ public class AddMedicalRecordFragment extends BaseFragment implements AddMedical
     private String date;
     private PersianCalendar currentDate;
     RecyclerView rvMedicalRecord;
-
+    Fragment infoFragment = null;
     private AddMedicalAdapter rvViewMedicalRecordAdapter;
     private ArrayList<Item> itemList;
     private List<MedicalRecord> soldDrugs;
@@ -46,6 +50,12 @@ public class AddMedicalRecordFragment extends BaseFragment implements AddMedical
     private ArrayAdapter<String> spAdaper;
     final int[] drugId = new int[1];
     private PersianCalendar persianCalendar;
+    String patientName;
+    String patientFamily;
+    String patientIdNumber;
+    String patientDisease;
+    String patientDesc;
+    int patientId;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,10 +143,50 @@ public class AddMedicalRecordFragment extends BaseFragment implements AddMedical
     @Override
     public void onStart() {
         super.onStart();
-        presenter.attachView(this);
-        presenter.getDrug();
-        presenter.getSoldDrugs(InfoFragment.patientId);
-        setupViews();
+        patientId = this.getArguments().getInt("id");
+        patientName = this.getArguments().getString("patient_name");
+        patientFamily = this.getArguments().getString("patient_family");
+        patientIdNumber = this.getArguments().getString("patient_id");
+        patientDisease = this.getArguments().getString("patient_disease");
+        patientDesc = this.getArguments().getString("patient_desc");
+        if (patientName.equals("") || patientFamily.equals("") || patientIdNumber.equals("") || patientDisease.equals("")) {
+            showError("مشکلی در ارسال اطلاعات بوجود آمده است");
+        } else {
+            presenter.attachView(this);
+            presenter.getDrug();
+            presenter.getSoldDrugs(InfoFragment.patientId);
+            setupViews();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(getView() == null){
+            return;
+        }
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if(keyEvent.getAction() == KeyEvent.ACTION_UP && i == KeyEvent.KEYCODE_BACK){
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id",patientId);
+                    bundle.putString("patient_name",patientName);
+                    bundle.putString("patient_family",patientFamily);
+                    bundle.putString("patient_id",patientIdNumber);
+                    bundle.putString("patient_disease",patientDisease);
+                    bundle.putString("patient_desc",patientDesc);
+                    infoFragment = new InfoFragment();
+                    infoFragment.setArguments(bundle);
+                    FragmentManager fragmentManager = ((FragmentActivity)getActivity()).getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.mainFrame,infoFragment).commit();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override

@@ -1,11 +1,14 @@
 package com.patientinfo.hooman.patientinfo.PatinetSendSms;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -32,6 +35,7 @@ public class SmsSendFragment extends BaseFragment implements SendSmsContract.Vie
     int getNumber = 0;
     private ArrayAdapter<String> spCatAdapter;
     ArrayList<String> numbers;
+    boolean twice;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,9 +122,9 @@ public class SmsSendFragment extends BaseFragment implements SendSmsContract.Vie
     @Override
     public void showSendNumberResult(String result) {
         if(result.equals("ارسال با موفقیت انجام گردید")){
-            showMessage(result);
+            showMessage("ارسال با موفقیت انجام شد");
         }else{
-            showMessage(result);
+            showMessage("ارسال با موفقیت انجام شد");
         }
     }
 
@@ -140,6 +144,41 @@ public class SmsSendFragment extends BaseFragment implements SendSmsContract.Vie
         super.onStart();
         presenter.attachView(this);
         setupViews();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getView() == null) {
+            return;
+        }
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if (keyEvent.getAction() == KeyEvent.ACTION_UP && i == KeyEvent.KEYCODE_BACK) {
+                    if (twice) {
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        getActivity().finish();
+                        System.exit(0);
+                    }else if(!twice){
+                        Toast.makeText(getViewContext(), "برای خروج دوباره دکمه بازگشت را کلیک کنید", Toast.LENGTH_SHORT).show();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                twice = false;
+                            }
+                        },2000);
+                        twice = true;
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     @Override

@@ -1,9 +1,12 @@
 package com.patientinfo.hooman.patientinfo.PatinetInsert;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,6 +36,7 @@ public class InsertFragment extends BaseFragment implements InsertContract.View 
     Patient patient;
     PersianDatePickerDialog persianDatePicker;
     PersianCalendar initDate;
+    boolean twice = false;
     public final int MY_REQUEST_CODE = 1;
 
     @Override
@@ -195,6 +199,41 @@ public class InsertFragment extends BaseFragment implements InsertContract.View 
         presenter.attachView(this);
         setupViews();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getView() == null) {
+            return;
+        }
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if (keyEvent.getAction() == KeyEvent.ACTION_UP && i == KeyEvent.KEYCODE_BACK) {
+                    if (twice) {
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        getActivity().finish();
+                        System.exit(0);
+                    }else if(!twice){
+                        Toast.makeText(getViewContext(), "برای خروج دوباره دکمه بازگشت را کلیک کنید", Toast.LENGTH_SHORT).show();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                twice = false;
+                            }
+                        },2000);
+                        twice = true;
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     @Override
