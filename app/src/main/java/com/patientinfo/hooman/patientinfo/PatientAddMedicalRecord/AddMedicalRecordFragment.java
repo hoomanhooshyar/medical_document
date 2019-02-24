@@ -82,8 +82,8 @@ public class AddMedicalRecordFragment extends BaseFragment implements AddMedical
         rvMedicalRecord.setAdapter(rvViewMedicalRecordAdapter);
         txtDate = rootView.findViewById(R.id.txt_row_addDrug_date);
         txtDate.setText(date);
-        spAdaper = new ArrayAdapter<>(getViewContext(),android.R.layout.simple_spinner_item,spDrugs);
-        spAdaper.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spAdaper = new ArrayAdapter<>(getViewContext(),R.layout.spinner_item,spDrugs);
+        spAdaper.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spAddDrug = rootView.findViewById(R.id.sp_row_addDrug_drug);
         btnAdd = rootView.findViewById(R.id.btn_addMedicalRecordFragment_add);
 
